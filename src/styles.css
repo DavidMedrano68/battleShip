@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+* {
+  font-family: "Press Start 2P", sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: none;
+}
+body {
+  background-image: url(./picojam_ship_11.gif);
+  background-repeat: no-repeat;
+  background-size: fixed;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: 1fr 5fr 1fr;
+}
+.grid {
+  border: 2px black solid;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+.enemyGrid {
+  border: 2px black solid;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+#cell {
+  border: solid 0.5px;
+}
+.form {
+  display: grid;
+  grid-template-rows: 1fr, 1fr;
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.hit {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.missed {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.player {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 5fr 1fr;
+}
+.numbers {
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+}
+.horNumbers {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  font-size: larger;
+  justify-items: center;
+}
+.enemy {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 5fr 1fr;
+}
+.main {
+  width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 5fr;
+}
+label {
+  text-align: center;
+}
+.playerMessage .enemyMessage {
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}
+input[type="submit"] {
+  width: min-content;
+  height: min-content;
+  justify-self: center;
+}
+footer {
+  text-align: center;
+  align-self: end;
+}
+input {
+  color: black;
+}
+input:focus {
+  outline: none !important;
+}
+.retry {
+  grid-column: span 2;
+  grid-row: span 2;
+  font-size: x-large;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}

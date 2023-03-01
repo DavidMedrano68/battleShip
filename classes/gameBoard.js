@@ -1,4 +1,5 @@
-class GameBoard {
+import { randomCoord } from "../help/helpFunc.js";
+export default class GameBoard {
   constructor(board, placeShips = []) {
     this.board =
       board ||
@@ -24,12 +25,25 @@ class GameBoard {
     return [desiredY, desiredX + iteration];
   }
   placeShips(ship, desiredX, desiredY) {
+    let shipCoords = [];
     const available = this.available(ship.length, desiredX, desiredY);
     if (available) {
       for (let i = 0; i < ship.length; i++) {
         const [y, x] = this.coords(desiredX, desiredY, i);
         this.board[y][x] = { ship };
+        shipCoords.push([y, x]);
       }
+      this.placedShips.push(ship);
+      return shipCoords;
+    } else {
+      return false;
+    }
+  }
+  autoPlaceShips(ship) {
+    const [y, x] = randomCoord();
+    const placed = this.placeShips(ship, x, y);
+    if (placed == false) {
+      this.autoPlaceShips(ship);
     }
   }
   recieveAttack(y, x) {
@@ -42,7 +56,7 @@ class GameBoard {
     if (this.board[y][x] == null) {
       this.missedAttacks.push([y, x]);
       this.board[y][x] = "-";
-      return true;
+      return "missed";
     } else if (this.board[y][x].ship) {
       this.board[y][x].ship.hit();
       this.board[y][x] = "X";
@@ -51,7 +65,7 @@ class GameBoard {
     return undefined;
   }
   allShipsSunk() {
-    this.placeShips.every((ship) => ship.isSunk());
+    return this.placedShips.every((ship) => ship.isSunk());
   }
   missedAttacks() {
     return this.missedAttacks;
@@ -62,31 +76,7 @@ class GameBoard {
   checkBoard() {
     return this.board;
   }
+  checkPlacedShips() {
+    return this.placedShips;
+  }
 }
-let ship = {
-  length: 3,
-  hit: () => {
-    ship.length--;
-  },
-  isSunk: () => {
-    return ship.length < 1;
-  },
-};
-let ship2 = {
-  length: 2,
-  hit: () => {
-    ship.length--;
-  },
-  isSunk: () => {
-    return ship2.length < 1;
-  },
-};
-const gameBoard = new GameBoard();
-gameBoard.placeShips(ship, 3, 2);
-
-gameBoard.recieveAttack(2, 3);
-gameBoard.recieveAttack(2, 4);
-gameBoard.recieveAttack(2, 5);
-console.log(gameBoard.checkBoard());
-console.log(ship.isSunk());
-console.log(ship2.isSunk());
